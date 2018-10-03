@@ -16,7 +16,10 @@ export class UserCredentials extends React.Component {
     e.preventDefault()
     const snapshot = await database.child('users').once('value')
     let allUsers = snapshot.val()
-    allUsers[state.username] = {password: state.password}
+    allUsers[state.username] = {
+      password: state.password,
+      leagues: {exists:true}
+    }
     database.child('users').set(allUsers)
   }
 
@@ -36,7 +39,6 @@ export class UserCredentials extends React.Component {
   changeHandler = (state) => (e) => {
     e.preventDefault()
     state[e.target.name] = e.target.value
-    console.log(state);
   }
 
   render() {

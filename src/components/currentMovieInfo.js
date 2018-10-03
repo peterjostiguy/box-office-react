@@ -6,9 +6,9 @@ export class CurrentMovieInfo extends React.Component {
 
     return (
       <div>
-        <h3>{'title goes here'}</h3>
-        <h3>Release Date: {'date goes here'}</h3>
-        <h2>{'current user goes here'} is winning with {'bid goes here'}</h2>
+        <h3>{this.props.title}</h3>
+        <h3>Release Date: {this.props.releaseDate}</h3>
+        <h2>{this.props.currentLeader} is winning with {this.props.currentBidAmount}</h2>
       </div>
     )
   }

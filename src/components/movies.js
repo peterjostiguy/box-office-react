@@ -13,22 +13,45 @@ export class Movies extends React.Component {
 
 
   handleClick = (props) => (e) => {
-    let currentBidTitle = props.title
-    let currentBidReleaseDate = props.releaseDate
-    // resetBid()
-    console.log(currentBidTitle, currentBidReleaseDate);
+    this.resetBid(props.title, props.releaseDate)
   }
 
-  // async resetBid = () => {
-  //   const snapshot = await database.once('value')
-  //
-  // }
+  resetBid = async (currentBidTitle, currentBidRelease) => {
+    const snapshot = await database.child('/leagues/' + [this.props.leagueName]+ '/draft/currentUserIndex').once('value')
+    let currentUserIndex = snapshot.val()
+    let currentBidAmount = Number(prompt('whatchu wanna bid?'))
+    if (!currentBidAmount || currentBidAmount === 0){
+      alert("You gotta bid somethin'!")
+    }
+    else if(currentBidAmount > this.props.dollarsLeft) {
+      alert('Nice try ya broke bitch')
+    }
+    else {
+      this.updateCurrentBid(currentBidAmount, currentBidTitle, currentBidRelease, currentUserIndex)
+    }
+  }
+
+  updateCurrentBid = (newBid, currentBidTitle, currentBidRelease, currentUserIndex) => {
+    database.child('leagues/'+this.props.leagueName+'/draft/currentBid').set({
+      currentLeader: this.props.username,
+      currentBidAmount: newBid,
+      title: currentBidTitle,
+      releaseDate: currentBidRelease,
+      next: "",
+      currentUserIndex: currentUserIndex
+    })
+  }
+
 
   async componentDidMount(){
-    const snapshot = await database.once('value')
-    let allMovies = snapshot.val().movies
+
+    const snapshot = await database.child('leagues/'+ this.props.leagueName+'/draft/movies').once('value')
+    let allMovies = snapshot.val()
     let allMoviesArray = Object.keys(allMovies)
-    let newMoviesArray = allMoviesArray.map((movie, i) => {
+    let availableMovies = allMoviesArray.filter((movie) => {
+      return allMovies[movie].available
+    })
+    let newMoviesArray = availableMovies.map((movie, i) => {
       return (
         <Movie key={"movie_" + i}  title={allMovies[movie].title} releaseDate={allMovies[movie].releaseDate} clickHandler={this.handleClick} />
       )

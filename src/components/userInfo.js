@@ -6,8 +6,8 @@ export class UserInfo extends React.Component {
 
     return (
       <div>
-        <p>Monies Left: {100+1}</p>
-        <p>Movies Owned: {0}</p>
+        <p>Monies Left: {this.props.dollarsLeft}</p>
+        <p>Movies Owned: {this.props.moviesOwned}</p>
         <p>Username: {this.props.user}</p>
       </div>
     )
