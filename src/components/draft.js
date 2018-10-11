@@ -60,21 +60,83 @@ export class Draft extends React.Component {
     })
   }
 
+  turnListener = () => {
+    database.child('leagues/' + this.props.leagueName +'/draft/currentBid/currentUserIndex').on('value', (snapshot) => {
+      let currentUserIndex = snapshot.val()
+      this.setState({currentUserIndex: currentUserIndex })
+    })
+  }
+
   startStopListener = () => {
     database.child('leagues/' + this.props.leagueName +'/draft/isActive').on('value', (snapshot) => {
       let currentActiveStatus = snapshot.val()
       this.setState({currentDraftActive: currentActiveStatus})
     })
   }
+
+  findNextUser = (currentIndex) => {
+    if(this.state.currentLineUp){
+      if (currentIndex + 1 >= this.state.currentLineUp.length) {
+        return 0
+      }
+      else {
+        return currentIndex
+      }
+    }
+  }
+
+  checkIfFinished = () => {
+    if(this.state.moviesOwned === 10 || this.state.dollarsLeft === 0){
+      this.removeFromLineUp()
+    }
+    if(this.state.moviesOwned < 10 && this.state.dollarsLeft > 0){
+      this.addToLineUp()
+    }
+  }
+
+  endDraft = () => {
+    if (!this.state.currentLineUp.length) {
+      database.child('leagues/' + this.props.leagueName + '/draft/isActive/').set(false)
+      database.child('leagues/' + this.props.leagueName + '/draft/isAvailable/').set(false)
+      database.child('leagues/' + this.props.leagueName + '/draft/isOver/').set(true)
+    }
+  }
+
+  removeFromLineUp = () => {
+    database.child('leagues/' + this.props.leagueName + '/draft/users/' + this.props.username + '/isActive').set(false)
+    database.child('leagues/' + this.props.leagueName + '/draft/currentBid/currentUserIndex').set(this.findNextUser(this.state.currentBid.currentUserIndex))
+  }
+
+  addToLineUp = () => {
+    database.child('leagues/' + this.props.leagueName + '/draft/users/' + this.props.username + '/isActive').set(true)
+  }
+
+  createOrder = () => {
+    database.child('leagues/' + this.props.leagueName +'/draft/users').on('value', (snapshot) => {
+      let currentActiveUsers = snapshot.val()
+      if (currentActiveUsers) {
+        let currentActiveUsersArray = Object.keys(currentActiveUsers)
+        currentActiveUsersArray = currentActiveUsersArray.filter((e) => {
+          return currentActiveUsers[e].isActive
+        })
+        this.setState({currentLineUp: currentActiveUsersArray})
+      }
+    })
+  }
+
   componentDidMount() {
     this.selectLeague(this.props.leagueName)
     this.bidListener()
     this.budgetListener()
     this.startStopListener()
+    this.createOrder()
+    this.turnListener()
   }
 
   render() {
     if (this.state.currentDraftActive) {
+      this.endDraft()
+      this.checkIfFinished()
       if (this.state.currentBid.title) {
         return (
           <div>
@@ -84,12 +146,20 @@ export class Draft extends React.Component {
           </div>
         )
       }
-      else {
+      else if (this.state.currentLineUp[this.state.currentUserIndex] === this.props.username){
         return (
           <div>
             <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
             <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
             <Movies username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned}/>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div>
+            <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+            <h1>Hang tight for the next movie</h1>
           </div>
         )
       }

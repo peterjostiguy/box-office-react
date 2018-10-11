@@ -18,7 +18,7 @@ export class Landing extends React.Component {
     let allLeagues = snapshot.val()
     const moviesSnapshot = await database.child('movies').once('value')
     let allMovies = moviesSnapshot.val()
-    allLeagues[state.leagueName] = {password: state.password, admin: this.props.username, draft: {currentBid: false, isActive:false, isAvailable:false, currentUserIndex: 0, movies: allMovies}}
+    allLeagues[state.leagueName] = {password: state.password, admin: this.props.username, draft: {currentBid: {currentUserIndex: 0}, isActive:false, isAvailable:false, isOver: false, movies: allMovies}}
     database.child('leagues').set(allLeagues)
   }
 

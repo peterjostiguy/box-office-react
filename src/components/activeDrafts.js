@@ -2,10 +2,6 @@ import React from 'react'
 import database from '../firebase'
 import {League} from './league'
 import {Draft} from './draft'
-// import {MoviesContainer} from '../containers/moviesContainer'
-// import {DashboardContainer} from '../containers/dashboardContainer'
-// import {CurrentMovieInfoContainer} from '../containers/currentMovieInfoContainer'
-// import {CurrentMovieInfo} from './currentMovieInfo'
 
 export class ActiveDrafts extends React.Component {
 
@@ -47,7 +43,7 @@ export class ActiveDrafts extends React.Component {
     allLeaguesArray = allLeaguesArray.filter((e) => {
       return this.state.usersLeagues.includes(e)
     })
-    let activeDrafts = allLeaguesArray.filter((e) => allLeagues[e].draft.isAvailable)
+    let activeDrafts = allLeaguesArray.filter((e) => allLeagues[e].draft.isAvailable && !allLeagues[e].draft.isOver)
     activeDrafts = activeDrafts.map((e, i) => {
       return (
         <League key={'league_' + i} league={e} />
@@ -61,7 +57,7 @@ export class ActiveDrafts extends React.Component {
     this.setState({currentDraft: {league: selection}})
     const userExists = await this.getDraftUsers(selection)
     if (!userExists) {
-      database.child('leagues/' + selection + '/draft/users/' + this.props.username).set({dollarsLeft: 200, moviesOwned:0})
+      database.child('leagues/' + selection + '/draft/users/' + this.props.username).set({dollarsLeft: 200, moviesOwned:0, isActive: true})
     }
   }
 
@@ -80,10 +76,6 @@ export class ActiveDrafts extends React.Component {
     })
   }
 
-  ///WHERE DO I CALL THIS?
-  // database.child('leagues/'+ this.state.currentDraft.league + '/draft/isActive').on('value', (snapshot) => {
-  //   this.setState({currentDraft: {league: this.state.currentDraft.league, isActive: snapshot.val()}})
-  // })
   render() {
     console.log("render");
     if (this.state.currentDraft.league) {
@@ -93,28 +85,7 @@ export class ActiveDrafts extends React.Component {
         </div>
       )
     }
-    // if (this.state.currentDraft.league && this.state.currentDraft.isActive) {
-    //   return (
-    //     <div>
-    //       <Draft leagueName={this.state.currentDraft.league} username={this.props.username}/>
-    //     </div>
-    //   )
-    // }
-    // else if (this.state.currentDraft.league && this.state.isAdmin) {
-    //   return (
-    //     <div>
-    //       <button onClick={this.startDraft}>Start Draft</button>
-    //       <h2>Draft Starting Soon!</h2>
-    //     </div>
-    //   )
-    // }
-    // else if (this.state.currentDraft.league) {
-    //   return (
-    //     <div>
-    //       <h2>Draft Starting Soon!</h2>
-    //     </div>
-    //   )
-    // }
+
     else {
       return (
         <div>

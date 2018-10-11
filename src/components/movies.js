@@ -17,7 +17,7 @@ export class Movies extends React.Component {
   }
 
   resetBid = async (currentBidTitle, currentBidRelease) => {
-    const snapshot = await database.child('/leagues/' + [this.props.leagueName]+ '/draft/currentUserIndex').once('value')
+    const snapshot = await database.child('/leagues/' + [this.props.leagueName]+ '/draft/currentBid/currentUserIndex').once('value')
     let currentUserIndex = snapshot.val()
     let currentBidAmount = Number(prompt('whatchu wanna bid?'))
     if (!currentBidAmount || currentBidAmount === 0){
@@ -37,7 +37,6 @@ export class Movies extends React.Component {
       currentBidAmount: newBid,
       title: currentBidTitle,
       releaseDate: currentBidRelease,
-      next: "",
       currentUserIndex: currentUserIndex
     })
   }
