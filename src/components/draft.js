@@ -3,7 +3,6 @@ import {Movies} from './movies'
 import {DashboardContainer} from '../containers/dashboardContainer'
 import {UserInfo} from '../components/userInfo'
 import {BidButtonsContainer} from '../containers/bidButtonsContainer'
-// import {CurrentMovieInfoContainer} from '../containers/currentMovieInfoContainer'
 import {CurrentMovieInfo} from './currentMovieInfo'
 import database from '../firebase'
 
@@ -69,6 +68,7 @@ export class Draft extends React.Component {
 
   startStopListener = () => {
     database.child('leagues/' + this.props.leagueName +'/draft/isActive').on('value', (snapshot) => {
+      this.createOrder()
       let currentActiveStatus = snapshot.val()
       this.setState({currentDraftActive: currentActiveStatus})
     })
@@ -129,7 +129,6 @@ export class Draft extends React.Component {
     this.bidListener()
     this.budgetListener()
     this.startStopListener()
-    this.createOrder()
     this.turnListener()
   }
 

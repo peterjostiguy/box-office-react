@@ -1,8 +1,6 @@
 import React from 'react'
 import {CreateLeague} from './createLeague'
 import {UsersLeagues} from './usersLeagues'
-import {JoinLeague} from './joinLeague'
-import {ActiveDrafts} from './activeDrafts'
 import database from '../firebase.js'
 
 export class Landing extends React.Component {
@@ -22,10 +20,6 @@ export class Landing extends React.Component {
     database.child('leagues').set(allLeagues)
   }
 
-  activateDraft = (state) => () => {
-    database.child('/leagues/'+state.selectedLeague+'/draft/isAvailable/').set(true)
-  }
-
   changeHandler = (state) => (e) => {
     e.preventDefault()
     state[e.target.name] = e.target.value
@@ -34,10 +28,8 @@ export class Landing extends React.Component {
   render() {
     return (
       <div>
-        <JoinLeague username={this.props.username}/>
-        <UsersLeagues username={this.props.username} startDraft={this.activateDraft}/>
+        <UsersLeagues username={this.props.username}/>
         <CreateLeague changeHandler = {this.changeHandler} submitHandler = {this.createLeague}/>
-        <ActiveDrafts username={this.props.username}/>
       </div>
     )
 

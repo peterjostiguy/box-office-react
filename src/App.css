@@ -1,15 +1,33 @@
 body {
-  background-color: hsl(210,60%,70%);
+  background-color: hsl(210,60%,50%);
   font-family: 'Questrial', sans-serif;
 }
-header {
+
+
+/* header {
   background-color: grey;
+} */
+
+.user-leagues {
+  display: flex;
+  flex-direction: row;
 }
 
+.join-league {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-league {
+  background-color: hsl(0,0%,95%);
+  height: 15vh;
+  width: 15vh;
+  margin: 3vh;
+  box-shadow: 2px 5px 10px black;
+}
 .all-movies {
   width: 90vw;
   margin: 2vh 4vw;
-  /* display: none; */
   justify-content: space-around;
   background-color: white;
 }
@@ -19,32 +37,3 @@ header {
   background-color: white;
   box-shadow: 2px 5px 10px black;
 }
-
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */

@@ -1,6 +1,8 @@
 import React from 'react'
 import database from '../firebase'
 import {League} from './league'
+import {JoinLeague} from './joinLeague'
+import {LeagueData} from './leagueData'
 
 export class UsersLeagues extends React.Component {
 
@@ -19,7 +21,7 @@ export class UsersLeagues extends React.Component {
       usersLeagues = usersLeagues.filter((e) => e !== 'exists')
       usersLeagues = usersLeagues.map((e, i) => {
         return (
-         <League key={'league_' + i} league={e} />
+         <League key={'league_' + i} league={e} clickHandler={this.selectLeague}  class={"user-league"} />
         )
       })
       this.setState({usersLeagues:usersLeagues})
@@ -32,10 +34,28 @@ export class UsersLeagues extends React.Component {
     return leagueAdmin === this.props.username
   }
 
-  selectLeague = async (e) => {
-    const leagueName = e.target.value
+  selectLeague = (leagueName) => async (e) => {
     const isAdmin = await this.isAdmin(leagueName)
     this.setState({selectedLeague: leagueName, isAdmin: isAdmin})
+    this.joinDraft(leagueName)
+  }
+
+  activateDraft = (leagueName) => () => {
+    database.child('/leagues/'+leagueName+'/draft/isAvailable/').set(true)
+  }
+
+  getDraftUsers = async (selection) => {
+    const snapshot = await database.child('leagues/'+selection+'/draft/users/'+this.props.username).once('value')
+    const draftUser = snapshot.val()
+    return draftUser
+  }
+
+  joinDraft = async (league) => {
+    const selection = league
+    const userExists = await this.getDraftUsers(selection)
+    if (!userExists) {
+      database.child('leagues/' + selection + '/draft/users/' + this.props.username).set({dollarsLeft: 200, moviesOwned:0, isActive: true})
+    }
   }
 
   componentDidMount() {
@@ -46,29 +66,18 @@ export class UsersLeagues extends React.Component {
   }
 
   render() {
-    if (this.state.selectedLeague && this.state.isAdmin) {
+    if (this.state.selectedLeague) {
       return (
         <div>
-          <h3>Nothing Here Yet!</h3>
-          <button onClick={this.props.startDraft(this.state)}>Start Draft</button>
-        </div>
-      )
-    }
-    else if (this.state.selectedLeague) {
-      return (
-        <div>
-          <h3>Nothing Here Yet!</h3>
+          <LeagueData username={this.props.username} leagueName={this.state.selectedLeague} isAdmin={this.state.isAdmin} activateDraft={this.activateDraft}/>
         </div>
       )
     }
     else {
       return (
-        <div>
-          <h3>Your Leagues</h3>
-          <select onChange={this.selectLeague}>
-            <option>Select League</option>
-            {this.state.usersLeagues}
-          </select>
+        <div className={"user-leagues"}>
+          {this.state.usersLeagues}
+          <JoinLeague username={this.props.username}/>
         </div>
       )
     }
