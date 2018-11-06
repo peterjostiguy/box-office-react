@@ -43,7 +43,7 @@ export class BidButtons extends React.Component {
     database.child('leagues/'+this.props.leagueName+'/draft/users/'+this.state.currentBid.currentLeader).set({
       dollarsLeft: this.state.dollarsLeft - this.state.currentBid.currentBidAmount,
       moviesOwned: this.state.moviesOwned + 1,
-      isActive: true 
+      isActive: true
     })
     database.child('leagues/'+this.props.leagueName+'/draft/movies/'+this.state.currentBid.title).set({
       available: false,
@@ -52,12 +52,18 @@ export class BidButtons extends React.Component {
     database.child('leagues/'+this.props.leagueName+'/draft/currentBid').set({
       currentUserIndex: this.findNextUser(this.state.currentUserIndex)
     })
+
+    // const snapshot = database.child('leagues/'+this.props.leagueName+'/users/'+this.props.username+'/movies').once('value')
+    database.child('leagues/'+this.props.leagueName+'/users/'+this.state.currentBid.currentLeader+'/movies/'+this.state.currentBid.title).set({
+      total: 0,
+      boughtFor: this.state.currentBid.currentBidAmount
+    })
   }
 
   render() {
     this.state.currentBid = this.props.data.currentBid
     return (
-      <div>
+      <div className={'bid-buttons'}>
         <BidButton clickHandler={this.bidItUp} amount={1} />
         <BidButton clickHandler={this.bidItUp} amount={5} />
         <BidButton clickHandler={this.endBidding} amount={"End Bidding"} />

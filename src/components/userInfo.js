@@ -5,10 +5,10 @@ export class UserInfo extends React.Component {
   render() {
 
     return (
-      <div>
-        <p>Monies Left: {this.props.dollarsLeft}</p>
-        <p>Movies Owned: {this.props.moviesOwned}</p>
-        <p>Username: {this.props.user}</p>
+      <div className='user-info'>
+        <p>What up {this.props.user}?</p>
+        <p>You have {this.props.dollarsLeft} to spend</p>
+        <p>You own {this.props.moviesOwned} movies</p>
       </div>
     )
   }

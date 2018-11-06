@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
+import Cookies from 'universal-cookie';
 // import {MoviesContainer} from './containers/moviesContainer'
 // import {DashboardContainer} from './containers/dashboardContainer'
 // import {CurrentMovieInfoContainer} from './containers/currentMovieInfoContainer'
 import {UserCredentials} from './components/userCredentials'
-import {Landing} from './components/landing'
+// import {Landing} from './components/landing'
+import {Header} from './components/header'
+import {Footer} from './components/footer'
 import './App.css'
+import {UsersLeagues} from './components/usersLeagues'
 
-//Next stop is start draft adds 200 to each user, imports all movies from general DB
-//Then I'm going to write code that removes movies from line up when Owned
-//then I'm going to change who bids each time
+//timer
+//show what movies *you* own during draft
+//find way to show who owns what during draft
+//make it so movies scroll right (fix footer, mostly)
 //then I'll style
+//Be able to click through to other users
+//update each movies total from api feature
 //then i'll find a ton of other bugs
-let currentUser = '-L3xVTTFYXz5sLUqnkYC'
+
 
 
 class App extends Component {
@@ -26,23 +33,36 @@ class App extends Component {
   }
 
   getUser = (username) => {
+    const cookies = new Cookies()
+    cookies.set('username', username, { path: '/' })
+    this.setState({username: username})
+  }
+
+  logout = () => {
+    const cookies = new Cookies()
+    var username = cookies.remove('username')
+    this.setState({username: username})
+  }
+
+  componentDidMount = () => {
+    const cookies = new Cookies()
+    var username = cookies.get('username')
     this.setState({username: username})
   }
 
   render() {
 
-    if(this.state.username){
-      return (
-        <div>
-          <Landing username={this.state.username}/>
-
+    return(
+      <div className={'container'}>
+        <Header />
+        <div className={'centered middle'}>
+          {this.state.username && this.state.username !== "undefined" ?
+            <UsersLeagues username={this.state.username}/>
+            : <UserCredentials getUser = {this.getUser}/>}
         </div>
-      )
-    }
-
-    else {
-      return <UserCredentials getUser = {this.getUser}/>
-    }
+        <Footer username={this.state.username} logout={this.logout}/>
+      </div>
+    )
 
   }
 }

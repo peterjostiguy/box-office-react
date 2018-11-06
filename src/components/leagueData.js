@@ -21,7 +21,7 @@ export class LeagueData extends React.Component {
       allUsersArray.push(allUsers[user])
     }
     allUsers = this.sortUsersByTotal(allUsersArray)
-    allUsers = allUsers.map((e)=> <li>{e.username}:  {e.total}</li>)
+    allUsers = allUsers.map((e, i)=> <li key={i}>{e.username}:  {(e.total/1000000).toFixed(2)}M</li>)
     this.setState({allUsers:allUsers, currentUserTotal:currentUserTotal})
   }
 
@@ -38,32 +38,61 @@ export class LeagueData extends React.Component {
     })
   }
 
+  sortMoviesByTotal = (allMovies) => {
+    return allMovies.sort((a, b) => {
+      return b.total - a.total
+    })
+  }
+
+  findMovieTotals = async () => {
+    const snapshot = await database.child('leagues/'+this.props.leagueName+'/users/'+this.props.username+'/movies').once('value')
+    let allMovies = snapshot.val()
+    let allMoviesArray = []
+    for (var movie in allMovies) {
+      if (movie !== 'exists') {
+        allMovies[movie].title = movie
+        allMoviesArray.push(allMovies[movie])
+      }
+    }
+    allMovies = this.sortMoviesByTotal(allMoviesArray)
+    allMovies = allMovies.map((e, i)=> <li key={i}>{e.title}:  {(e.total/1000000).toFixed(2)}M</li>)
+    this.setState({allMovies: allMovies})
+  }
+
   componentDidMount = () => {
     this.findUserTotals()
     this.checkDraftStatus()
+    this.findMovieTotals()
   }
 
   render(){
     const draftStatus = this.state.draftStatus
       return  (
-        <div>
-          <h1> {this.props.leagueName} </h1>
+        <div className='league-data'>
           {draftStatus && draftStatus.isOver && (
             <div>
-              <div>
-                <h3>{this.props.username}</h3>
-                <h2>$ {this.state.currentUserTotal}</h2>
+              <div className='league-top-container'>
+                <h1 className='league-name'> {this.props.leagueName} </h1>
+                <div className='league-user-info'>
+                  <h4>{this.props.username}</h4>
+                  <h3>${this.state.currentUserTotal}</h3>
+                </div>
               </div>
-              <div className="leaderboard">
+              <div className='leaderboard'>
                 <h3>Leaderboard</h3>
-                <ol>
+                <ul>
                   {this.state.allUsers}
-                </ol>
+                </ul>
               </div>
-              <h1> your movies, one by one </h1>
+              <div className='movies-list'>
+                <h3>Your Movies</h3>
+                <ul>
+                  {this.state.allMovies}
+                </ul>
+              </div>
             </div>
           )}
-          {draftStatus && !draftStatus.isAvailable && this.props.isAdmin && (
+          {draftStatus && !draftStatus.isOver && !draftStatus.isAvailable && this.props.isAdmin && (
             <button onClick={this.props.activateDraft(this.props.leagueName)}>Create Draft</button>
           )}
           {draftStatus && draftStatus.isAvailable && (

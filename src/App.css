@@ -1,16 +1,156 @@
-body {
-  background-color: hsl(210,60%,50%);
+/* issue number one is .body used to be on a container that held userLeagues */
+
+html, body {
   font-family: 'Questrial', sans-serif;
+  background-color: hsl(0,0%,99%);
+  margin: 0;
+  padding: 0;
 }
 
+.container {
+  position: relative;
+}
 
-/* header {
-  background-color: grey;
-} */
+.middle {
+  padding: 10px;
+  padding-bottom: 8vh;
+}
+
+.body {
+  min-height:82vh;
+  margin-top: -4.0vh;
+  background-color: hsla(215,90%,40%,0.4);
+}
+
+@media (max-width: 485px){
+  .body {
+    min-height:79vh;
+  }
+}
+
+@media (max-height: 737px) {
+  .body {
+    margin-top: -5.0vh;
+    min-height: 77vh;
+  }
+}
+
+.centered {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header {
+  margin-top: -3vh;
+  background-color: hsla(15,60%,50%,0.9);
+}
+
+.header h1 {
+  width: 60vw;
+  padding: 2vh;
+}
+
+.site-name {
+  text-decoration: none;
+  color: hsl(0,0%,95%);
+}
+
+.site-name:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width: 100vw;
+  background-color: hsla(15,60%,50%,0.9);
+  color: hsl(0,0%,95%);
+  display: flex;
+  height: 8vh;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.credentials {
+  padding: 3vh 7vh;
+  margin-top: 10vh;
+  border: hsl(0,0%,80%) 1px solid;
+  background-color: hsla(215,90%,40%,0.4);
+  border-radius: 2vh;
+}
+
+.login {
+  justify-content: space-around;
+  align-items: center;
+}
+
+input {
+  background-color: white;
+  padding: 1vh;
+  margin: 1vh;
+  box-shadow: 2px 5px 10px black;
+}
 
 .user-leagues {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 1vh;
+  width: 100vw;
+}
+
+.league-data {
+  width: 92vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.league-top-container {
+  display: flex;
+  justify-content: space-between;
+  width: 85vw;
+}
+
+.league-name {
+  border-bottom: hsl(0,0%,65%) 1px solid;
+  padding: 1vh 1vh;
+  width: 40vw;
+  word-wrap: normal;
+}
+
+.user-info {
+  margin-left: 5vw;
+}
+
+.league-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.league-user-info h3 {
+  margin-top: -1vh;
+  padding-bottom: 1.5vh;
+}
+
+ul {
+  list-style-type: none;
+}
+.padded {
+  padding-left: 1vh;
+}
+
+.small-circle {
+  background-color: hsla(140,90%,30%,0.7);
+  height: 7vh;
+  width: 7vh;
+  border-radius: 3.5vh;
+  color: white;
 }
 
 .join-league {
@@ -18,22 +158,43 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .user-league {
-  background-color: hsl(0,0%,95%);
-  height: 15vh;
-  width: 15vh;
+  background-color: hsl(215,0%,98%);
+  height: 20vh;
+  width: 20vh;
+  max-width: 37vw;
   margin: 3vh;
   box-shadow: 2px 5px 10px black;
 }
+
 .all-movies {
-  width: 90vw;
-  margin: 2vh 4vw;
+  width: 85vw;
   justify-content: space-around;
-  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2vh;
+}
+
+.current-movie-info {
+  margin-left: 5vw;
+  background-color: hsl(215,0%,98%);
+  padding: 1.5vh;
+  width: auto;
+  box-shadow: 2px 5px 10px black;
+}
+
+.bid-buttons {
+  padding-left: 5vw;
+}
+
+a {
+  text-decoration: underline;
 }
 
 .draft-movie, .user-total, button {
-  margin: 1vh 1vw;
   background-color: white;
+  padding: 0.5vh;
+  margin: 2vh 1px;
   box-shadow: 2px 5px 10px black;
 }

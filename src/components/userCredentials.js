@@ -41,12 +41,7 @@ export class UserCredentials extends React.Component {
 
   checkPassword = (state, allUsers) => {
     bcrypt.compare(state.password, allUsers[state.username].password, (err, isMatch) => {
-      if (isMatch) {
-        this.props.getUser(state.username)
-      }
-      else {
-        alert('Wrong Password Dum Dum')
-      }
+      isMatch ? this.props.getUser(state.username) : alert('Wrong Password Dum Dum')
     })
   }
 
@@ -55,12 +50,17 @@ export class UserCredentials extends React.Component {
     state[e.target.name] = e.target.value
   }
 
+  toggleSignUp = () => {
+    this.state.signUp ? this.setState({signUp:false}) : this.setState({signUp:true})
+  }
+
   render() {
 
     return (
-      <div>
-        <Login changeHandler={this.changeHandler} submitHandler={this.logIn}/>
-        <Signup changeHandler={this.changeHandler} submitHandler={this.signUp}/>
+      <div className={'centered vertical credentials'}>
+        {this.state.signUp ?
+          <Signup changeHandler={this.changeHandler} submitHandler={this.signUp} clickHandler={this.toggleSignUp}/>
+          : <Login changeHandler={this.changeHandler} submitHandler={this.logIn} clickHandler={this.toggleSignUp}/>}
       </div>
     )
   }

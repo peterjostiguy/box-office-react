@@ -1,6 +1,5 @@
 import React from 'react'
 import database from '../firebase'
-import {League} from './league'
 
 export class JoinLeague extends React.Component {
 
@@ -83,28 +82,27 @@ export class JoinLeague extends React.Component {
   }
 
   render() {
+
     var joinClasses = 'user-league join-league'
+
     return (
       <div className={joinClasses} onClick={this.clickJoin}>
-        {!this.state.joinLeague && (
-          <div className='smallCircle'>
-            <p>+</p>
-          </div>
-        )}
-        {this.state.joinLeague && (
-          <div>
-            <form onSubmit={this.joinLeague}>
+        {this.state.joinLeague ?
+          (<form onSubmit={this.joinLeague}>
               <select value={this.state.leagueToJoin} onChange={this.handleChangeLeagueName}>
                 <option>Select League</option>
                 {this.state.allLeagues}
               </select>
               <input type='password' placeholder='password' value={this.state.leaguePassword} onChange={this.handleChangeLeaguePassword}/>
               <input type='submit' value='Join!'/>
-            </form>
-          </div>
-        )}
+            </form>)
+          : (<div className='small-circle centered'>
+            <h3>+</h3>
+          </div>)
+        }
       </div>
     )
+
   }
 
 }

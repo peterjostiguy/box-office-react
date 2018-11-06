@@ -15,10 +15,11 @@ export class Signup extends React.Component {
     return (
       <div>
         <h3>Sign Up</h3>
-        <form onSubmit={this.props.submitHandler(this.state)}>
-          <input onChange={this.props.changeHandler(this.state)} type="text" name="username" defaultValue="" placeholder="Username" />
-          <input type="text" onChange={this.props.changeHandler(this.state)} name="password" defaultValue="" placeholder="Password" />
-          <input type="submit" name="" value="Submit" />
+        <form onSubmit={this.props.submitHandler(this.state)} className='vertical login'>
+          <input onChange={this.props.changeHandler(this.state)} type="text" name="username" defaultValue="" placeholder="Username" autoCapitalize="none" />
+          <input type="password" onChange={this.props.changeHandler(this.state)} name="password" defaultValue="" placeholder="Password" />
+          <input type="submit" name="" value="Register" />
+          <p>Already a member? <a onClick={this.props.clickHandler}>Login!</a></p>
         </form>
       </div>
     )

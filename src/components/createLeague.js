@@ -8,7 +8,7 @@ export class CreateLeague extends React.Component {
       leagueName: ""
     }
   }
-  
+
   render() {
     return (
       <div>
@@ -18,6 +18,7 @@ export class CreateLeague extends React.Component {
           <input type="text" onChange={this.props.changeHandler(this.state)} name="password" defaultValue="" placeholder="League Password" />
           <input type="submit" name="" value="Make it!" />
         </form>
+        <button onClick={this.props.cancel}>Cancel</button>
       </div>
     )
   }

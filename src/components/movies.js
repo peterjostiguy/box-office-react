@@ -10,8 +10,6 @@ export class Movies extends React.Component {
     this.state = {}
   }
 
-
-
   handleClick = (props) => (e) => {
     this.resetBid(props.title, props.releaseDate)
   }
@@ -59,6 +57,13 @@ export class Movies extends React.Component {
   }
 
   render(){
-    return (<div className="all-movies">{this.state.movies}</div>)
+    return (
+      <div>
+        <h2>{"You're up! Pick a movie"}</h2>
+        <div className="all-movies">
+          {this.state.movies}
+        </div>
+      </div>
+    )
   }
 }

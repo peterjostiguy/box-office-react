@@ -21,7 +21,7 @@ export class UsersLeagues extends React.Component {
       usersLeagues = usersLeagues.filter((e) => e !== 'exists')
       usersLeagues = usersLeagues.map((e, i) => {
         return (
-         <League key={'league_' + i} league={e} clickHandler={this.selectLeague}  class={"user-league"} />
+         <League key={'league_' + i} league={e} clickHandler={this.selectLeague}  class={"user-league centered"} />
         )
       })
       this.setState({usersLeagues:usersLeagues})
@@ -66,21 +66,13 @@ export class UsersLeagues extends React.Component {
   }
 
   render() {
-    if (this.state.selectedLeague) {
-      return (
-        <div>
-          <LeagueData username={this.props.username} leagueName={this.state.selectedLeague} isAdmin={this.state.isAdmin} activateDraft={this.activateDraft}/>
-        </div>
-      )
-    }
-    else {
-      return (
-        <div className={"user-leagues"}>
-          {this.state.usersLeagues}
-          <JoinLeague username={this.props.username}/>
-        </div>
-      )
-    }
+
+    return this.state.selectedLeague ?
+      <LeagueData username={this.props.username} leagueName={this.state.selectedLeague} isAdmin={this.state.isAdmin} activateDraft={this.activateDraft} className={'body'}/>
+      : (<div className={"user-leagues body"}>
+        {this.state.usersLeagues}
+        <JoinLeague username={this.props.username}/>
+      </div>)
   }
 
 }

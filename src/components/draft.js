@@ -138,17 +138,16 @@ export class Draft extends React.Component {
       this.checkIfFinished()
       if (this.state.currentBid.title) {
         return (
-          <div>
-            <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
+          <div className='draft-container'>
             <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+            <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
             <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft}/>
           </div>
         )
       }
       else if (this.state.currentLineUp[this.state.currentUserIndex] === this.props.username){
         return (
-          <div>
-            <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
+          <div className='draft-container'>
             <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
             <Movies username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned}/>
           </div>
@@ -156,7 +155,7 @@ export class Draft extends React.Component {
       }
       else {
         return (
-          <div>
+          <div className='draft-container'>
             <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
             <h1>Hang tight for the next movie</h1>
           </div>
@@ -165,18 +164,14 @@ export class Draft extends React.Component {
     }
     else if (this.state.isAdmin) {
       return (
-        <div>
+        <div className='padded'>
+          <h2>{"When everyone's ready, fire it up!"}</h2>
           <button onClick={this.startDraft}>Start Draft</button>
-          <h2>Draft Starting Soon!</h2>
         </div>
       )
     }
     else {
-      return (
-        <div>
-          <h2>Draft Starting Soon!</h2>
-        </div>
-      )
+      return <h2 className='padded'>"You're in the right place! Draft Starting Soon!"</h2>
     }
   }
 }
