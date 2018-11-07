@@ -11,7 +11,7 @@
 
  This app is your one stop shop for all your FBO needs! You can sign up, join as many leagues as you want, and track the performance of your movies, compared to the others in your league. And on draft night, FBO provides a convenient platform to host the auction. With real-time bidding and easy ways to see your and your opponents' growing rosters, gone are the days of asking "who won that??" and "how much did you spend?". What's more, as soon as the draft ends, the results are automatically transferred to each user's dashboard, where users can immediately start tracking their lineup's performance!
 
- Try it for yourself! [Click here to visit!](https://box-office-fantasy.firebaseapp.com/) Use the login below to access drafts.
+ Try it for yourself! [Click here to visit!](https://box-office-fantasy.firebaseapp.com/) Use the login below to access some sample leagues.
 
  - username: calvin
  - password: hobbes
