@@ -22,19 +22,6 @@ html, body {
   background-color: hsla(215,90%,40%,0.4);
 }
 
-@media (max-width: 485px){
-  .body {
-    min-height:79vh;
-  }
-}
-
-@media (max-height: 737px) {
-  .body {
-    margin-top: -5.0vh;
-    min-height: 77vh;
-  }
-}
-
 .centered {
   display: flex;
   justify-content: space-around;
@@ -93,6 +80,7 @@ input {
   padding: 1vh;
   margin: 1vh;
   box-shadow: 2px 5px 10px black;
+  font-size: 16px;
 }
 
 .user-leagues {
@@ -197,4 +185,28 @@ a {
   padding: 0.5vh;
   margin: 2vh 1px;
   box-shadow: 2px 5px 10px black;
+}
+
+.movies-list, .leaderboard {
+  background-color: white;
+  padding: 0.5vh;
+  margin: 2vh 2vh;
+  box-shadow: 2px 5px 10px black;
+  max-width: 50vw;
+}
+
+@media (max-width: 485px){
+  .body {
+    min-height:79vh;
+  }
+  .movies-list, .leaderboard {
+    max-width: none;
+  }
+}
+
+@media (max-height: 737px) {
+  .body {
+    margin-top: -5.0vh;
+    min-height: 77vh;
+  }
 }

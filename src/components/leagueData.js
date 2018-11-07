@@ -45,6 +45,7 @@ export class LeagueData extends React.Component {
   }
 
   findMovieTotals = async () => {
+    let userTotal = 0
     const snapshot = await database.child('leagues/'+this.props.leagueName+'/users/'+this.props.username+'/movies').once('value')
     let allMovies = snapshot.val()
     let allMoviesArray = []
@@ -55,8 +56,11 @@ export class LeagueData extends React.Component {
       }
     }
     allMovies = this.sortMoviesByTotal(allMoviesArray)
-    allMovies = allMovies.map((e, i)=> <li key={i}>{e.title}:  {(e.total/1000000).toFixed(2)}M</li>)
-    this.setState({allMovies: allMovies})
+    allMovies = allMovies.map((e, i)=> {
+      userTotal += e.total
+      return <li key={i}>{e.title}:  {(e.total/1000000).toFixed(2)}M</li>
+    })
+    this.setState({allMovies: allMovies, userTotal: userTotal})
   }
 
   componentDidMount = () => {
@@ -75,18 +79,18 @@ export class LeagueData extends React.Component {
                 <h1 className='league-name'> {this.props.leagueName} </h1>
                 <div className='league-user-info'>
                   <h4>{this.props.username}</h4>
-                  <h3>${this.state.currentUserTotal}</h3>
+                  <h3>${this.state.userTotal}</h3>
                 </div>
               </div>
-              <div className='leaderboard'>
+              <div>
                 <h3>Leaderboard</h3>
-                <ul>
+                <ul className='leaderboard'>
                   {this.state.allUsers}
                 </ul>
               </div>
-              <div className='movies-list'>
+              <div>
                 <h3>Your Movies</h3>
-                <ul>
+                <ul  className='movies-list'>
                   {this.state.allMovies}
                 </ul>
               </div>

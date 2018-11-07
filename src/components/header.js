@@ -1,6 +1,4 @@
 import React from 'react'
-import {CreateLeague} from './createLeague'
-import database from '../firebase'
 
 export class Header extends React.Component {
 
