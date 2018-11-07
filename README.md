@@ -13,8 +13,8 @@
 
  Try it for yourself! [Click here to visit!](https://box-office-fantasy.firebaseapp.com/) Use the login below to access drafts.
 
- username: calvin
- password: hobbes
+ - username: calvin
+ - password: hobbes
 
  Or you can check out this video of it in action [here](https://youtu.be/hDuDvYoeNRg)!
 
