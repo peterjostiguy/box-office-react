@@ -1,6 +1,5 @@
 import React from 'react'
 import {Movies} from './movies'
-import {DashboardContainer} from '../containers/dashboardContainer'
 import {UserInfo} from '../components/userInfo'
 import {BidButtonsContainer} from '../containers/bidButtonsContainer'
 import {CurrentMovieInfo} from './currentMovieInfo'

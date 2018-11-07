@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import Cookies from 'universal-cookie';
-// import {MoviesContainer} from './containers/moviesContainer'
-// import {DashboardContainer} from './containers/dashboardContainer'
-// import {CurrentMovieInfoContainer} from './containers/currentMovieInfoContainer'
 import {UserCredentials} from './components/userCredentials'
-// import {Landing} from './components/landing'
 import {Header} from './components/header'
 import {Footer} from './components/footer'
 import './App.css'

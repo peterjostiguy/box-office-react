@@ -68,11 +68,11 @@ export class UsersLeagues extends React.Component {
   render() {
 
     return this.state.selectedLeague ?
-      <LeagueData username={this.props.username} leagueName={this.state.selectedLeague} isAdmin={this.state.isAdmin} activateDraft={this.activateDraft} className={'body'}/>
-      : (<div className={"user-leagues body"}>
+      (<div className={'body'}><LeagueData username={this.props.username} leagueName={this.state.selectedLeague} isAdmin={this.state.isAdmin} activateDraft={this.activateDraft} /></div>)
+      : (<div className='body'><div className={"user-leagues"}>
         {this.state.usersLeagues}
         <JoinLeague username={this.props.username}/>
-      </div>)
+      </div></div>)
   }
 
 }
