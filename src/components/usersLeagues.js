@@ -21,7 +21,7 @@ export class UsersLeagues extends React.Component {
       usersLeagues = usersLeagues.filter((e) => e !== 'exists')
       usersLeagues = usersLeagues.map((e, i) => {
         return (
-         <League key={'league_' + i} league={e} clickHandler={this.selectLeague}  class={"user-league centered"} />
+         <League key={'league_' + i} league={e} clickHandler={this.selectLeague} />
         )
       })
       this.setState({usersLeagues:usersLeagues})

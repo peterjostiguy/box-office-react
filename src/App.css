@@ -164,6 +164,9 @@ ul {
   box-shadow: 2px 5px 10px black;
   border-radius: 1vh;
 }
+.margin{
+  margin-left: 1vh;
+}
 
 .no-limit {
   width: auto;
