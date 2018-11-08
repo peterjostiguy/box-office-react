@@ -73,19 +73,6 @@ export class Draft extends React.Component {
       this.setState({currentDraftActive: currentActiveStatus})
     })
   }
-  //
-  // displayOwnedMovies = () => {
-  //   database.child('leagues/' + this.props.leagueName + '/draft/users/').on('value', (snapshot) => {
-  //     const allUsers = snapshot.val()
-  //     let allUsersArray = []
-  //     for (var variable in allUsers) {
-  //       let ownedMoviesElement = <WonMovies username={variable} />
-  //       allUsersArray.push(ownedMoviesElement)
-  //     }
-  //     this.setState({allUsers: allUsersArray})
-  //   })
-  //
-  // }
 
   findNextUser = (currentIndex) => {
     if(this.state.currentLineUp){
@@ -143,7 +130,6 @@ export class Draft extends React.Component {
     this.budgetListener()
     this.startStopListener()
     this.turnListener()
-    // this.displayOwnedMovies()
   }
 
   render() {

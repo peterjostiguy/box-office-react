@@ -52,8 +52,6 @@ export class BidButtons extends React.Component {
     database.child('leagues/'+this.props.leagueName+'/draft/currentBid').set({
       currentUserIndex: this.findNextUser(this.state.currentUserIndex)
     })
-
-    // const snapshot = database.child('leagues/'+this.props.leagueName+'/users/'+this.props.username+'/movies').once('value')
     database.child('leagues/'+this.props.leagueName+'/users/'+this.state.currentBid.currentLeader+'/movies/'+this.state.currentBid.title).set({
       total: 0,
       boughtFor: this.state.currentBid.currentBidAmount

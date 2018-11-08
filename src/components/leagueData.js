@@ -21,7 +21,10 @@ export class LeagueData extends React.Component {
       allUsersArray.push(allUsers[user])
     }
     allUsers = this.sortUsersByTotal(allUsersArray)
-    allUsers = allUsers.map((e, i)=> <li key={i}>{e.username}:  {(e.total/1000000).toFixed(2)}M</li>)
+    allUsers = allUsers.map((e, i)=> {
+      let formattedTotal = (e.total/1000000).toFixed(2)
+      return <li key={i}>{e.username}:  {formattedTotal}M</li>
+    })
     this.setState({allUsers:allUsers, currentUserTotal:currentUserTotal})
   }
 
@@ -60,7 +63,7 @@ export class LeagueData extends React.Component {
       userTotal += e.total
       return <li key={i}>{e.title}:  {(e.total/1000000).toFixed(2)}M</li>
     })
-    this.setState({allMovies: allMovies, userTotal: userTotal})
+    this.setState({allMovies: allMovies, userTotal: userTotal.toLocaleString()})
   }
 
   componentDidMount = () => {
