@@ -16,6 +16,6 @@
  - username: calvin
  - password: hobbes
 
- Or you can check out this video of it in action [here](https://youtu.be/hDuDvYoeNRg)!
+ Or you can check out this video of it in action [here](https://youtu.be/r2URsm8z1bA)!
 
  Enjoy!

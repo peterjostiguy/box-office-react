@@ -7,8 +7,6 @@ import './App.css'
 import {UsersLeagues} from './components/usersLeagues'
 
 //timer
-//show what movies *you* own during draft
-//find way to show who owns what during draft
 //show who won after each movie is done
 //fix style bugs
   //add commas to totals
