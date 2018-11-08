@@ -151,14 +151,17 @@ export class Draft extends React.Component {
       this.endDraft()
       this.checkIfFinished()
       if (this.state.currentBid.title) {
+        var isWinning = this.state.currentBid.currentLeader === this.props.username
         return (
           <div className='draft-container'>
             <div className='top-draft-container'>
               <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
               <AllWonMovies leagueName={this.props.leagueName}/>
             </div>
-            <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
-            <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft}/>
+            <div className='current-movie-container'>
+              <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader} isWinning={isWinning}/>
+              <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} isAdmin={this.state.isAdmin} isWinning={isWinning}/>
+            </div>
           </div>
         )
       }

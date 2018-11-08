@@ -64,9 +64,9 @@ export class BidButtons extends React.Component {
     this.state.currentBid = this.props.data.currentBid
     return (
       <div className={'bid-buttons'}>
-        <BidButton clickHandler={this.bidItUp} amount={1} />
-        <BidButton clickHandler={this.bidItUp} amount={5} />
-        <BidButton clickHandler={this.endBidding} amount={"End Bidding"} />
+        {!this.props.isWinning && <BidButton clickHandler={this.bidItUp} amount={1} /> }
+        {!this.props.isWinning && <BidButton clickHandler={this.bidItUp} amount={5} /> }
+        {this.props.isAdmin && <BidButton clickHandler={this.endBidding} amount={"End"} />}
       </div>
     )
   }

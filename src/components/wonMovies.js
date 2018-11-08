@@ -20,9 +20,9 @@ export class WonMovies extends React.Component {
       userMovies.push(oneMovie)
     }
     return (
-      <div className=''>
+      <div>
         <h4 onClick={this.toggleShow}>{this.props.username}:  {this.props.total}</h4>
-        {this.state.showMovies && <ul>{userMovies}</ul>}
+        {this.state.showMovies && <ul className='user-movies'>{userMovies}</ul>}
       </div>
     )
   }

@@ -117,10 +117,12 @@ input {
   margin: 3vh;
   box-shadow: 2px 5px 10px black;
   min-width: 40vw;
+  border-radius: 1vh;
 }
 
 .top-draft-container {
   display: flex;
+  margin-top: 5vh;
 }
 
 .league-user-info {
@@ -162,6 +164,7 @@ ul {
   max-width: 37vw;
   margin: 3vh;
   box-shadow: 2px 5px 10px black;
+  border-radius: 1vh;
 }
 
 .no-limit {
@@ -177,16 +180,28 @@ ul {
   margin-top: 2vh;
 }
 
-.current-movie-info {
-  margin-left: 5vw;
+.draft-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-movie-container {
+  /* margin-left: 5vw; */
+  margin-top: 5vh;
   background-color: hsl(215,0%,98%);
   padding: 1.5vh;
-  width: auto;
+  min-width:50vw;
   box-shadow: 2px 5px 10px black;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 1vh;
+  border: 5px solid hsla(15,80%,70%,0.8);
 }
 
 .bid-buttons {
   padding-left: 5vw;
+  display: flex;
 }
 
 a {
@@ -198,6 +213,18 @@ a {
   padding: 0.5vh;
   margin: 2vh 1px;
   box-shadow: 2px 5px 10px black;
+  border-radius: 1vh;
+}
+
+button {
+  font-size: 4vh;
+  height: 8vh;
+  width: 8vh;
+  margin: 2vh 2vh;
+}
+
+.end {
+  color: hsla(360, 100%, 60%, 0.7);
 }
 
 .movies-list, .leaderboard {
@@ -206,6 +233,7 @@ a {
   margin: 2vh 2vh;
   box-shadow: 2px 5px 10px black;
   max-width: 50vw;
+  border-radius: 1vh;
 }
 
 @media (max-width: 485px){
@@ -216,7 +244,36 @@ a {
     max-width: none;
   }
   .top-draft-container {
+    margin-top: 5vh;
+  }
+  .user-info, .all-users {
+    min-width: none;
+    margin: .5vh;
+  }
+  .current-movie-container {
+    max-width: 80vw;
+  }
+  .current-movie-info{
+    display: flex;
     flex-direction: column;
+    justify-content: space-around;
+  }
+  .league-data {
+    width: 100vw;
+    align-items: center;
+    /* align-items: flex-start; */
+  }
+  .bid-buttons {
+    flex-direction: column;
+  }
+  button {
+    height: 6vh;
+    width: 6vh;
+    margin: 0.5vh 0.5vh;
+    font-size: 3vh;
+  }
+  .user-movies {
+    margin-left: -4vh;
   }
 }
 
