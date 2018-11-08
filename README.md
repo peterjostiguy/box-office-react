@@ -4,6 +4,8 @@
 
 - [Visit the app!](https://box-office-fantasy.firebaseapp.com/)
 
+- [See it in action!](https://youtu.be/r2URsm8z1bA)
+
 
 ### About the FBO App
 
