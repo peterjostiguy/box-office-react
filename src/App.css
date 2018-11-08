@@ -156,6 +156,11 @@ ul {
   box-shadow: 2px 5px 10px black;
 }
 
+.no-limit {
+  width: auto;
+  max-width: none;
+}
+
 .all-movies {
   width: 85vw;
   justify-content: space-around;

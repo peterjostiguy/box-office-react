@@ -43,7 +43,7 @@ export class JoinLeague extends React.Component {
     })
     allLeagues = allLeagues.map((e, i) => {
       return (
-        <option>{e}</option>
+        <option key={i}>{e}</option>
       )
     })
     this.setState({allLeagues:allLeagues})
@@ -83,10 +83,8 @@ export class JoinLeague extends React.Component {
 
   render() {
 
-    var joinClasses = 'user-league join-league'
-
     return (
-      <div className={joinClasses} onClick={this.clickJoin}>
+      <div className={this.state.joinLeague ? 'user-league join-league no-limit':'user-league join-league'} onClick={this.clickJoin}>
         {this.state.joinLeague ?
           (<form onSubmit={this.joinLeague}>
               <select value={this.state.leagueToJoin} onChange={this.handleChangeLeagueName}>
