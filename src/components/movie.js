@@ -7,7 +7,7 @@ export class Movie extends React.Component {
     return (
       <div className='draft-movie' onClick={this.props.clickHandler(this.props)}>
         <h4>{this.props.title}</h4>
-        <p>{this.props.releaseDate}</p>
+        <p className='release-date'>{this.props.releaseDate}</p>
       </div>
     )
   }

@@ -105,9 +105,9 @@ input {
 }
 
 .league-name {
-  border-bottom: hsl(0,0%,65%) 1px solid;
+  border-bottom: hsl(0,0%,85%) 2px solid;
   padding: 1vh 1vh;
-  width: 40vw;
+  width: 45vw;
   word-wrap: normal;
 }
 
@@ -216,6 +216,11 @@ a {
   border-radius: 1vh;
 }
 
+.draft-movie {
+  padding: 0 0.5vh;
+  margin: 1vh 1px;
+}
+
 button {
   font-size: 4vh;
   height: 8vh;
@@ -274,6 +279,18 @@ button {
   }
   .user-movies {
     margin-left: -4vh;
+  }
+  .release-date {
+    margin: 0.5;
+    margin-top: -2vh;
+  }
+  .league-top-container {
+
+    align-items: center;
+  }
+  .league-name {
+    border-right: hsl(0,0%,85%) 2px solid;
+    border-bottom: none;
   }
 }
 

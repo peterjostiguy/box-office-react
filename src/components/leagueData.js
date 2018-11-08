@@ -78,7 +78,7 @@ export class LeagueData extends React.Component {
               <div className='league-top-container'>
                 <h1 className='league-name'> {this.props.leagueName} </h1>
                 <div className='league-user-info'>
-                  <h4>{this.props.username}</h4>
+                  <h4>Hi, {this.props.username}</h4>
                   <h3>${this.state.userTotal}</h3>
                 </div>
               </div>
