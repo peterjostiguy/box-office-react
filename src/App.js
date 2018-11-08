@@ -9,10 +9,11 @@ import {UsersLeagues} from './components/usersLeagues'
 //timer
 //show what movies *you* own during draft
 //find way to show who owns what during draft
+//show who won after each movie is done
 //fix style bugs
   //add commas to totals
 //Be able to click through to other users
-//update each movies total from api feature
+//update each movies total from api
 //recalculate user's total after movie changes
 
 

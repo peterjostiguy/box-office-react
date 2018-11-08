@@ -111,8 +111,16 @@ input {
   word-wrap: normal;
 }
 
-.user-info {
-  margin-left: 5vw;
+.user-info, .all-users {
+  padding: 1vh;
+  background-color: hsl(215,0%,98%);
+  margin: 3vh;
+  box-shadow: 2px 5px 10px black;
+  min-width: 40vw;
+}
+
+.top-draft-container {
+  display: flex;
 }
 
 .league-user-info {
@@ -206,6 +214,9 @@ a {
   }
   .movies-list, .leaderboard {
     max-width: none;
+  }
+  .top-draft-container {
+    flex-direction: column;
   }
 }
 

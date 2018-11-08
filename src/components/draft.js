@@ -3,6 +3,7 @@ import {Movies} from './movies'
 import {UserInfo} from '../components/userInfo'
 import {BidButtonsContainer} from '../containers/bidButtonsContainer'
 import {CurrentMovieInfo} from './currentMovieInfo'
+import {AllWonMovies} from './allWonMovies'
 import database from '../firebase'
 
 export class Draft extends React.Component {
@@ -72,6 +73,19 @@ export class Draft extends React.Component {
       this.setState({currentDraftActive: currentActiveStatus})
     })
   }
+  //
+  // displayOwnedMovies = () => {
+  //   database.child('leagues/' + this.props.leagueName + '/draft/users/').on('value', (snapshot) => {
+  //     const allUsers = snapshot.val()
+  //     let allUsersArray = []
+  //     for (var variable in allUsers) {
+  //       let ownedMoviesElement = <WonMovies username={variable} />
+  //       allUsersArray.push(ownedMoviesElement)
+  //     }
+  //     this.setState({allUsers: allUsersArray})
+  //   })
+  //
+  // }
 
   findNextUser = (currentIndex) => {
     if(this.state.currentLineUp){
@@ -129,6 +143,7 @@ export class Draft extends React.Component {
     this.budgetListener()
     this.startStopListener()
     this.turnListener()
+    // this.displayOwnedMovies()
   }
 
   render() {
@@ -138,7 +153,10 @@ export class Draft extends React.Component {
       if (this.state.currentBid.title) {
         return (
           <div className='draft-container'>
-            <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+            <div className='top-draft-container'>
+              <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+              <AllWonMovies leagueName={this.props.leagueName}/>
+            </div>
             <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader}/>
             <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft}/>
           </div>
@@ -147,7 +165,10 @@ export class Draft extends React.Component {
       else if (this.state.currentLineUp[this.state.currentUserIndex] === this.props.username){
         return (
           <div className='draft-container'>
-            <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+            <div className='top-draft-container'>
+              <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+              <AllWonMovies leagueName={this.props.leagueName}/>
+            </div>
             <Movies username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned}/>
           </div>
         )
@@ -155,7 +176,10 @@ export class Draft extends React.Component {
       else {
         return (
           <div className='draft-container'>
-            <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+            <div className='top-draft-container'>
+              <UserInfo user={this.props.username} dollarsLeft={this.state.dollarsLeft} moviesOwned={this.state.moviesOwned} />
+              <AllWonMovies leagueName={this.props.leagueName}/>
+            </div>
             <h1>Hang tight for the next movie</h1>
           </div>
         )
