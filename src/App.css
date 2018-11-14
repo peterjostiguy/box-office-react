@@ -118,6 +118,19 @@ input {
   border-radius: 1vh;
 }
 
+.timer {
+  margin-left: 4vw;
+}
+
+.countdown {
+  margin-left: 1vw;
+  color: hsla(215,90%,40%,0.6);
+}
+
+.alert {
+  color: hsla(15,60%,50%,1);
+}
+
 .top-draft-container {
   display: flex;
   margin-top: 5vh;
@@ -230,6 +243,8 @@ button {
 
 .end {
   color: hsla(360, 100%, 60%, 0.7);
+  display: flex;
+  justify-content: center;
 }
 
 .movies-list, .leaderboard {
@@ -239,6 +254,25 @@ button {
   box-shadow: 2px 5px 10px black;
   max-width: 50vw;
   border-radius: 1vh;
+}
+
+.current-movie-info{
+  border-right: 1px solid black;
+  padding-right: 5vw;
+}
+
+.dont-shrink {
+  width: auto;
+}
+
+.shrink {
+  font-size: 2vh;
+  width: auto;
+  height: 4vh;
+}
+
+.horizontal {
+  display: flex;
 }
 
 @media (max-width: 485px){
@@ -262,6 +296,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    border-right: 1px solid black;
   }
   .league-data {
     width: 100vw;
@@ -269,6 +304,13 @@ button {
   }
   .bid-buttons {
     flex-direction: column;
+  }
+  .timer{
+    margin-top: 8vh;
+    margin-left: 1vh;
+  }
+  .countdown{
+    margin-left: 4vh;
   }
   button {
     height: 6vh;
@@ -290,6 +332,15 @@ button {
   .league-name {
     border-right: hsl(0,0%,85%) 2px solid;
     border-bottom: none;
+  }
+  .dont-shrink {
+    width: auto;
+  }
+  .horizontal {
+    display: inline;
+  }
+  .hide-on-mobile {
+    display: none;
   }
 }
 

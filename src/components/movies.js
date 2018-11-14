@@ -35,7 +35,8 @@ export class Movies extends React.Component {
       currentBidAmount: newBid,
       title: currentBidTitle,
       releaseDate: currentBidRelease,
-      currentUserIndex: currentUserIndex
+      currentUserIndex: currentUserIndex,
+      biddingActive: true
     })
   }
 

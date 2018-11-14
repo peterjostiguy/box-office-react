@@ -4,7 +4,7 @@
 
 - [Visit the app!](https://box-office-fantasy.firebaseapp.com/)
 
-- [See it in action!](https://youtu.be/r2URsm8z1bA)
+- [See it in action!](https://youtu.be/ZSsOsdF_n8Y)
 
 
 ### About the FBO App
@@ -18,6 +18,6 @@
  - username: calvin
  - password: hobbes
 
- Or you can check out this video of it in action [here](https://youtu.be/r2URsm8z1bA)!
+ Or you can check out this video of it in action [here](https://youtu.be/ZSsOsdF_n8Y)!
 
  Enjoy!

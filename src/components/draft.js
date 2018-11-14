@@ -19,7 +19,8 @@ export class Draft extends React.Component {
         releaseDate: "",
         currentLeader: "",
         currentBidAmount: 0,
-        currentUserIndex: 0
+        currentUserIndex: 0,
+        timeLeft: 15
       }
     }
   }
@@ -87,6 +88,7 @@ export class Draft extends React.Component {
 
   checkIfFinished = () => {
     if(this.state.moviesOwned === 10 || this.state.dollarsLeft === 0){
+      console.log("removed");
       this.removeFromLineUp()
     }
     if(this.state.moviesOwned < 10 && this.state.dollarsLeft > 0){
@@ -137,6 +139,7 @@ export class Draft extends React.Component {
       this.endDraft()
       this.checkIfFinished()
       if (this.state.currentBid.title) {
+        var userIsActive = this.state.dollarsLeft > 0 && this.state.moviesOwned < 10
         var isWinning = this.state.currentBid.currentLeader === this.props.username
         return (
           <div className='draft-container'>
@@ -146,7 +149,7 @@ export class Draft extends React.Component {
             </div>
             <div className='current-movie-container'>
               <CurrentMovieInfo title={this.state.currentBid.title} releaseDate={this.state.currentBid.releaseDate} currentBidAmount={this.state.currentBid.currentBidAmount} currentLeader={this.state.currentBid.currentLeader} isWinning={isWinning}/>
-              <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} isAdmin={this.state.isAdmin} isWinning={isWinning}/>
+              {this.state.moviesOwned < 10 && <BidButtonsContainer data={this.state} username={this.props.username} leagueName={this.props.leagueName} dollarsLeft={this.state.dollarsLeft} isAdmin={this.state.isAdmin} isWinning={isWinning} userIsActive={userIsActive}/>}
             </div>
           </div>
         )
@@ -177,13 +180,13 @@ export class Draft extends React.Component {
     else if (this.state.isAdmin) {
       return (
         <div className='padded'>
-          <h2>{"When everyone's ready, fire it up!"}</h2>
-          <button onClick={this.startDraft}>Start Draft</button>
+          <h2>When everyone's ready, fire it up!</h2>
+          <button className={'dont-shrink'} onClick={this.startDraft}>Start Draft</button>
         </div>
       )
     }
     else {
-      return <h2 className='padded'>"You're in the right place! Draft Starting Soon!"</h2>
+      return <h2 className='padded'>You're in the right place! Draft Starting Soon!</h2>
     }
   }
 }

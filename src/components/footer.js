@@ -13,7 +13,7 @@ export class Footer extends React.Component {
     e.preventDefault()
     const moviesSnapshot = await database.child('movies').once('value')
     let allMovies = moviesSnapshot.val()
-    let leagueData = {password: state.password, admin: this.props.username, draft: {currentBid: {currentUserIndex: 0}, isActive:false, isAvailable:false, isOver: false, movies: allMovies}}
+    let leagueData = {password: state.password, admin: this.props.username, draft: {currentBid: {currentUserIndex: 0, biddingActive:false}, isActive:false, isAvailable:false, isOver: false, movies: allMovies}}
     database.child('leagues/'+state.leagueName).set(leagueData)
     this.joinLeague(state.leagueName)
     this.setState({})

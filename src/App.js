@@ -8,8 +8,6 @@ import {UsersLeagues} from './components/usersLeagues'
 
 //timer
 //show who won after each movie is done
-//fix style bugs
-  //add commas to totals
 //Be able to click through to other users
 //update each movies total from api
 //recalculate user's total after movie changes

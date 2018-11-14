@@ -1,6 +1,7 @@
 import React from 'react'
 import database from '../firebase'
 import {BidButton} from './bidButton'
+import {Timer} from './timer'
 
 export class BidButtons extends React.Component {
 
@@ -16,7 +17,8 @@ export class BidButtons extends React.Component {
         currentBidAmount: this.state.currentBid.currentBidAmount + props.amount,
         title: this.state.currentBid.title,
         releaseDate: this.state.currentBid.releaseDate,
-        currentBidIndex: this.state.currentUserIndex
+        currentBidIndex: this.state.currentUserIndex,
+        biddingActive:true
       })
     }
     else {
@@ -39,10 +41,15 @@ export class BidButtons extends React.Component {
     }
   }
 
-  endBidding = () => {
+
+
+  endBidding = async () => {
+    const snapshot = await database.child('leagues/'+this.props.leagueName+'/draft/users/'+this.state.currentBid.currentLeader).once('value')
+    let winnerData = snapshot.val()
+
     database.child('leagues/'+this.props.leagueName+'/draft/users/'+this.state.currentBid.currentLeader).set({
-      dollarsLeft: this.state.dollarsLeft - this.state.currentBid.currentBidAmount,
-      moviesOwned: this.state.moviesOwned + 1,
+      dollarsLeft: winnerData.dollarsLeft - this.state.currentBid.currentBidAmount,
+      moviesOwned: winnerData.moviesOwned + 1,
       isActive: true
     })
     database.child('leagues/'+this.props.leagueName+'/draft/movies/'+this.state.currentBid.title).set({
@@ -50,7 +57,8 @@ export class BidButtons extends React.Component {
       owner: this.state.currentBid.currentLeader
     })
     database.child('leagues/'+this.props.leagueName+'/draft/currentBid').set({
-      currentUserIndex: this.findNextUser(this.state.currentUserIndex)
+      currentUserIndex: this.findNextUser(this.state.currentUserIndex),
+      biddingActive: false
     })
     database.child('leagues/'+this.props.leagueName+'/users/'+this.state.currentBid.currentLeader+'/movies/'+this.state.currentBid.title).set({
       total: 0,
@@ -58,13 +66,18 @@ export class BidButtons extends React.Component {
     })
   }
 
+
+
   render() {
     this.state.currentBid = this.props.data.currentBid
     return (
-      <div className={'bid-buttons'}>
-        {!this.props.isWinning && <BidButton clickHandler={this.bidItUp} amount={1} /> }
-        {!this.props.isWinning && <BidButton clickHandler={this.bidItUp} amount={5} /> }
-        {this.props.isAdmin && <BidButton clickHandler={this.endBidding} amount={"End"} />}
+      <div>
+        <div className={'bid-buttons'}>
+          {!this.props.isWinning && this.props.userIsActive && <BidButton clickHandler={this.bidItUp} amount={1} /> }
+          {!this.props.isWinning && this.props.userIsActive && <BidButton clickHandler={this.bidItUp} amount={5} /> }
+          {this.props.isAdmin && <BidButton clickHandler={this.endBidding} amount={"End"} />}
+        </div>
+        <Timer leagueName={this.props.leagueName} endBidding={this.endBidding}/>
       </div>
     )
   }

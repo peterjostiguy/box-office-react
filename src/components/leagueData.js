@@ -1,6 +1,7 @@
 import React from 'react'
 import database from '../firebase'
 import {Draft} from './draft'
+import {AllOwnedMovies} from './allOwnedMovies'
 
 export class LeagueData extends React.Component {
 
@@ -41,35 +42,9 @@ export class LeagueData extends React.Component {
     })
   }
 
-  sortMoviesByTotal = (allMovies) => {
-    return allMovies.sort((a, b) => {
-      return b.total - a.total
-    })
-  }
-
-  findMovieTotals = async () => {
-    let userTotal = 0
-    const snapshot = await database.child('leagues/'+this.props.leagueName+'/users/'+this.props.username+'/movies').once('value')
-    let allMovies = snapshot.val()
-    let allMoviesArray = []
-    for (var movie in allMovies) {
-      if (movie !== 'exists') {
-        allMovies[movie].title = movie
-        allMoviesArray.push(allMovies[movie])
-      }
-    }
-    allMovies = this.sortMoviesByTotal(allMoviesArray)
-    allMovies = allMovies.map((e, i)=> {
-      userTotal += e.total
-      return <li key={i}>{e.title}:  {(e.total/1000000).toFixed(2)}M</li>
-    })
-    this.setState({allMovies: allMovies, userTotal: userTotal.toLocaleString()})
-  }
-
   componentDidMount = () => {
     this.findUserTotals()
     this.checkDraftStatus()
-    this.findMovieTotals()
   }
 
   render(){
@@ -93,14 +68,18 @@ export class LeagueData extends React.Component {
               </div>
               <div>
                 <h3>Your Movies</h3>
-                <ul  className='movies-list'>
-                  {this.state.allMovies}
-                </ul>
+                <AllOwnedMovies leagueName={this.props.leagueName} username={this.props.username}/>
               </div>
             </div>
           )}
           {draftStatus && !draftStatus.isOver && !draftStatus.isAvailable && this.props.isAdmin && (
-            <button onClick={this.props.activateDraft(this.props.leagueName)}>Create Draft</button>
+            <button className={'dont-shrink'} onClick={this.props.activateDraft(this.props.leagueName)}>Create Draft</button>
+          )}
+          {draftStatus && !draftStatus.isOver && !draftStatus.isAvailable && !this.props.isAdmin && (
+            <div>
+              <h2>There's nothing here yet! </h2>
+              <h2>Contact your admin to find out when the draft is scheduled. </h2>
+            </div>
           )}
           {draftStatus && draftStatus.isAvailable && (
             <Draft leagueName={this.props.leagueName} username={this.props.username}/>
